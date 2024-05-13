@@ -13,7 +13,7 @@ const corsOptions = {
     exposedHeaders: 'Access-Control-Allow-Private-Network',
 };
 app.use(cors(corsOptions));
-
+app.get("/", (req, res) => res.send("Express on Vercel"));
 app.use(router);
 
 app.listen(PORT,()=>{
