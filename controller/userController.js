@@ -24,7 +24,7 @@ const updateUser=async(req,res)=>{
     const user=await User.findOne({accountAddress});
     if(!user)
     {
-        return res.status(200).send({message:"User doesn't exist on our server"})
+        return res.status(400).send({message:"User doesn't exist on our server"})
     }    
     await User.findOneAndUpdate({accountAddress},req.body,{new:true});
     return res.status(200).send(await User.find({accountAddress}));
