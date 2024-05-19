@@ -2,7 +2,7 @@ const express=require('express');
 const app=express();
 const cors=require('cors');
 const router = require('./routes/userRoutes');
-const PORT=4000;
+const PORT=process.env.PORT ||4000;
 require('./database/database');
 app.use(express.json());
 const corsOptions = {
@@ -15,7 +15,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.get("/", (req, res) => res.send("Express on Vercel"));
 app.use(router);
-
+app.use((err, req, res, next) => { // Add error handling middleware
+    console.error(err.stack);
+    res.status(500).send('Something went wrong.');
+  });
 app.listen(PORT,()=>{
     console.log("SERVER IS RUNNING ON PORT "+PORT);
 })
+module.exports = app;
